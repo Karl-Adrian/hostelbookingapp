@@ -2,14 +2,13 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { FaStar, FaStarHalf } from "react-icons/fa";
 
 const RoomList = ({ rooms }: { rooms: any }) => {
   return (
-    <div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {rooms.data.map((room: any) => {
-        console.log(room);
         const imgURL = `http://127.0.0.1:1337${room.image?.url}`;
-
         return (
           <div key={room.id}>
             <Link href={`/room/${room.id}`}>
@@ -24,6 +23,25 @@ const RoomList = ({ rooms }: { rooms: any }) => {
                 />
               </div>
             </Link>
+            <div className="h-[134px]">
+              <div className="flex items-center justify-between mb-6">
+                <div>Capacity: {room.capacity} person</div>
+                <div className="flex gap-1 text-accent">
+                  <FaStar />
+                  <FaStar />
+                  <FaStar />
+                  <FaStar />
+                  <FaStarHalf />
+                </div>
+              </div>
+              <Link href={`/room/${room.id}`}>
+                <h3 className="h3">{room.title}</h3>
+              </Link>
+              <p className="h3 font-secondary font-medium text-accent mb-4">
+                ${room.price}
+                <span className="text-base text-secondary">/ night</span>
+              </p>
+            </div>
           </div>
         );
       })}
